@@ -3,12 +3,12 @@
     mysql = require('mysql');
 var app = express();
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '1234',
-    database: 'error_detector'
-});
+//var connection = mysql.createConnection({
+//    host: 'localhost',
+//    user: 'root',
+//    password: '1234',
+//    database: 'error_detector'
+//});
 
 connection.connect();
 
@@ -67,30 +67,30 @@ var onreq = function (req, res) {
         req.on('end', function () {
             //console.log(body);
             
-            var projID;
-            var json = JSON.parse(body);
-            var query = 'SELECT id FROM project WHERE apiKey= \'' + json.apiKey + '\'';
-            var r = connection.query(query, function (err, rows, fields) {
-                if (err) throw err;
-                for (var i in rows) {
-                    json.project_id = rows[i].id;
-                    console.log(json);
-                    var que = connection.query("INSERT INTO error_metadata set ? ", json, function (err, rows) {
-                        if (err)
-                            console.log("Error inserting : %s ", err);
-                        res.end('Data Inserted\n');
+            //var projID;
+            //var json = JSON.parse(body);
+            //var query = 'SELECT id FROM project WHERE apiKey= \'' + json.apiKey + '\'';
+            //var r = connection.query(query, function (err, rows, fields) {
+            //    if (err) throw err;
+            //    for (var i in rows) {
+            //        json.project_id = rows[i].id;
+            //        console.log(json);
+            //        var que = connection.query("INSERT INTO error_metadata set ? ", json, function (err, rows) {
+            //            if (err)
+            //                console.log("Error inserting : %s ", err);
+            //            res.end('Data Inserted\n');
                         
-                        connection.commit(function (err) {
-                            if (err) {
-                                return connection.rollback(function () {
-                                    throw err;
-                                });
-                            }
-                            console.log('success!');
-                        });
-                    });
-                }
-            });
+            //            connection.commit(function (err) {
+            //                if (err) {
+            //                    return connection.rollback(function () {
+            //                        throw err;
+            //                    });
+            //                }
+            //                console.log('success!');
+            //            });
+            //        });
+            //    }
+            //});
             //console.log(json);
 
             //function setVal(x) {
